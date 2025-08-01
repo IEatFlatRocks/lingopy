@@ -21,3 +21,8 @@ Backend: Python, Flask, SQLite
 Frontend: HTML5, CSS3, Vanilla JavaScript
 
 APIs & Libraries: yt-dlp, faster-whisper, lyricsgenius, Google Gemini, deep-translator
+
+
+![Image](https://github.com/user-attachments/assets/fbd5434f-c6e9-425d-b492-812db9ebf08f)
+![Image](https://github.com/user-attachments/assets/50ee0213-328a-4add-9fa5-a29de4e071e5)
+![Image](https://github.com/user-attachments/assets/af1a36fa-c018-4c70-b458-12aad8120eea)
