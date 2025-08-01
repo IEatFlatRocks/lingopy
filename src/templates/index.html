@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LingoPy</title>
+<style>
+    body { font-family: sans-serif; background-color: #141414; color: #fff; margin: 0; padding: 2em; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2em; gap: 20px; }
+    h1 { font-size: 2.5em; }
+    .add-button { font-size: 2.5em; text-decoration: none; color: #fff; border: 2px solid #fff; border-radius: 50%; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; transition: background-color 0.2s, transform 0.2s; flex-shrink: 0; }
+    .add-button:hover { background-color: #e50914; border-color: #e50914; transform: scale(1.1); }
+    .search-form { display: flex; flex-grow: 1; margin: 0 2em; }
+    .search-form input { width: 100%; padding: 10px 15px; font-size: 1em; border-radius: 20px; border: 1px solid #555; background-color: #333; color: #fff; }
+    .search-form button { display: none; }
+    .nav-link {
+        color: #fff;
+        background-color: #333;
+        border: 1px solid #555;
+        text-decoration: none;
+        font-size: 1em;
+        font-weight: bold;
+        padding: 12px 20px;
+        border-radius: 20px;
+        transition: background-color 0.2s;
+        white-space: nowrap;
+    }
+    .nav-link:hover {
+        background-color: #444;
+        border-color: #777;
+    }
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 25px; }
+    .video-card { position: relative; text-decoration: none; color: #fff; background-color: #222; border-radius: 8px; overflow: hidden; transition: transform 0.2s; display: block; }
+    .video-card:hover { transform: scale(1.05); }
+    .video-card img { width: 100%; display: block; aspect-ratio: 16 / 9; object-fit: cover; }
+    .video-card::after { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 60%; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%); }
+    .video-card .title { position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px 15px; font-weight: bold; z-index: 2; white-space: normal; box-sizing: border-box; }
+    .delete-form { position: absolute; top: 10px; right: 10px; z-index: 3; }
+    .delete-button { background-color: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 20px; line-height: 30px; text-align: center; cursor: pointer; }
+    .delete-button:hover { background-color: #e50914; }
+    .empty-library { text-align: center; color: #777; font-size: 1.2em; padding: 4em 0; }
+</style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>LingoPy</h1>
+
+        <a href="{{ url_for('vocabulary') }}" class="nav-link">My Vocabulary</a>
+
+        <form action="/" method="get" class="search-form">
+            <input type="search" name="search" placeholder="Search library..." value="{{ search_query }}">
+            <button type="submit">Search</button>
+        </form>
+        
+        <a href="/add" class="add-button">+</a>
+    </div>
+
+    {% if videos %}
+        <div class="video-grid">
+            {% for video in videos %}
+            <a href="{{ video.player_url }}" class="video-card">
+                <form action="/delete" method="post" class="delete-form">
+                    <input type="hidden" name="youtube_id" value="{{ video.youtube_id }}">
+                    <button type="submit" class="delete-button" title="Delete Video">&times;</button>
+                </form>
+
+                <img src="{{ video.thumbnail_url }}" alt="Thumbnail for {{ video.title }}">
+                <p class="title">{{ video.title }}</p>
+            </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-library">
+            <p>Your library is empty. Click the "+" button to add a new video.</p>
+        </div>
+    {% endif %}
+
+</body>
+</html>

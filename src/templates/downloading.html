@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Processing...</title>
+    <style>
+        body { font-family: sans-serif; background-color: #141414; color: #fff; display: flex; text-align: center; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background-color: #222; padding: 40px 50px; border-radius: 8px; }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #555;
+            border-top-color: #fff;
+            border-radius: 50%;
+            margin: 0 auto 20px auto;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="spinner"></div>
+
+        <h1>Processing "{{ video_title }}"</h1>
+        <p>Downloading and transcribing... You will be redirected shortly.</p>
+    </div>
+
+    <script>
+        // After 3 seconds, redirect back to the homepage.
+        setTimeout(() => {
+            window.location.href = "{{ url_for('index') }}";
+        }, 3000);
+    </script>
+</body>
+</html>

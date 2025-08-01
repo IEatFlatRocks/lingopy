@@ -1,0 +1,33 @@
+# Python
+# ---------------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*egg-info/
+.Python
+
+# Virtual Environments
+# ---------------------------------
+venv/
+env/
+.venv/
+
+# Application Secrets & Data
+# ---------------------------------
+.env
+*.db
+*.db-journal
+library.json
+
+# IDE and Editor Folders
+# ---------------------------------
+.vscode/
+.idea/
+
+# OS-specific
+# ---------------------------------
+.DS_Store
+
+# Media files
+src/static/videos/

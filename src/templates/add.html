@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Video</title>
+    <style>
+        body { font-family: sans-serif; background-color: #141414; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background-color: #222; padding: 40px 50px; border-radius: 8px; text-align: center; width: 100%; max-width: 600px; }
+        h1 { margin-top: 0; }
+        form { display: flex; gap: 10px; }
+        input[type="url"] { flex-grow: 1; padding: 12px; font-size: 16px; border-radius: 4px; border: 1px solid #555; background-color: #333; color: #fff; }
+        button { padding: 12px 20px; font-size: 16px; font-weight: bold; cursor: pointer; border: none; border-radius: 4px; background-color: #e50914; color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add a New Video</h1>
+        <p>Paste a YouTube URL below to get started.</p>
+        <form action="/add" method="post">
+            <input type="url" name="url" placeholder="https://www.youtube.com/watch?v=..." required>
+            <button type="submit">Find Subtitles</button>
+        </form>
+    </div>
+</body>
+</html>

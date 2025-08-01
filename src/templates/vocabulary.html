@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Vocabulary</title>
+    <style>
+        body { font-family: sans-serif; background-color: #141414; color: #fff; margin: 0; padding: 2em; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 1em; }
+        h1 { font-size: 2.5em; margin: 0; }
+        .back-link { color: #fff; text-decoration: none; background-color: #333; padding: 10px 15px; border-radius: 5px; }
+        .word-list { margin-top: 2em; }
+        .word-item { display: flex; justify-content: space-between; align-items: center; background-color: #222; padding: 15px 20px; border-radius: 8px; margin-bottom: 1em; }
+        .word-content h3 { margin: 0 0 0.5em 0; color: #e50914; font-size: 1.5em; }
+        .word-content p { margin: 0; color: #ccc; }
+        .delete-button { background-color: #555; color: #fff; border: none; border-radius: 5px; padding: 8px 12px; cursor: pointer; }
+        .delete-button:hover { background-color: #e50914; }
+        .context-sentence {
+            margin-top: 0.5em !important;
+            font-style: italic;
+            color: #888 !important;
+            border-left: 3px solid #444;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>My Vocabulary</h1>
+            <a href="{{ url_for('index') }}" class="back-link">Back to Library</a>
+        </div>
+        
+        <div class="word-list">
+            {% if words %}
+                {% for item in words %}
+                    <div class="word-item">
+                        <div class="word-content">
+                            <h3>{{ item.word }}</h3>
+                            <p>{{ item.definition }}</p>
+                            <p class="context-sentence">"{{ item.context }}"</p>
+                        </div>
+                        <form action="{{ url_for('delete_word') }}" method="post">
+                            <input type="hidden" name="word" value="{{ item.word }}">
+                            <button type="submit" class="delete-button">Delete</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="word-item">
+                    <p>You haven't saved any words yet.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

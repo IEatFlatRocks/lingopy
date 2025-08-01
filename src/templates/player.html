@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ video_title }}</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; background-color: #121212; color: #fff; display: flex; height: 100vh; overflow: hidden; }
+        .spotify-layout { display: flex; width: 100%; height: 100%; padding: 20px; box-sizing: border-box; gap: 20px; }
+        #player-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-right: 20px;
+        }
+        #video-player {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            max-width: none;
+        }
+        .lyrics-section { width: 450px; flex-shrink: 0; display: flex; flex-direction: column; background-color: #222; border-radius: 8px; overflow: hidden; }
+        .controls-container { padding: 15px; display: flex; gap: 10px; background-color: #282828; border-bottom: 1px solid #444; align-items: center; }
+        .controls-container select { flex: 1; padding: 8px; font-size: 16px; border-radius: 4px; border: none; background-color: #444; color: #fff; }
+        #lyrics-pane { flex-grow: 1; overflow: auto; padding: 2em 1.5em; scroll-behavior: smooth; }
+        .lyric-block { margin-bottom: 2em; }
+        .caption-line { font-size: 1.8em; font-weight: bold; line-height: 1.3; margin: 0; padding: 0.2em 0; border-radius: 4px; opacity: 0.3; transition: opacity 0.4s ease, transform 0.4s ease; }
+        .caption-line.highlight { opacity: 1.0; transform: scale(1.02); }
+        .lang2 .caption-line { font-size: 1.2em; font-weight: normal; opacity: 0.4; }
+        .lang2 .caption-line.highlight { opacity: 1.0; transform: scale(1.0); }
+        .playback-controls { display: flex; align-items: center; gap: 5px; margin-left: 10px; }
+        .playback-controls button { padding: 8px 12px; font-size: 14px; background-color: #555; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+        .playback-controls button:hover { background-color: #666; }
+        .playback-controls button.active { background-color: #e50914; }
+        .clickable-word { cursor: pointer; }
+        .clickable-word:hover { background-color: rgba(255,255,255,0.2); }
+        #definition-popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 100; }
+        #popup-content { background-color: #333; padding: 2em; border-radius: 8px; max-width: 500px; text-align: center; }
+        .popup-hidden { display: none !important; }
+        #popup-content { text-align: left; }
+        #popup-original-sentence { font-size: 1.2em; margin-bottom: 1em; }
+        #popup-original-sentence mark { background-color: #e50914; color: #fff; padding: 0 4px; border-radius: 3px; }
+        #popup-translated-sentence { font-size: 1.1em; color: #ccc; border-left: 3px solid #555; padding-left: 1em; margin-bottom: 1.5em; }
+        #popup-word-translation { font-weight: bold; text-align: center; margin-bottom: 1.5em; font-size: 1.2em; }
+        #popup-word-translation span { color: #aaa; }
+        .popup-buttons { display: flex; justify-content: center; gap: 10px; }
+    </style>
+</head>
+<body>
+    <div class="spotify-layout">
+        <div id="player-wrapper">
+            <video id="video-player" controls>
+                <source src="{{ video_url }}" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="lyrics-section">
+            <div class="controls-container">
+                <select id="lang1-select">
+                    <option value="">-- Original Language --</option>
+                    {% for sub in subtitles %}
+                        <option value="{{ sub.url }}" {% if sub.url == preselect_lang1 %}selected{% endif %}>
+                            {{ sub.lang_code }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <select id="lang2-select">
+                    <option value="">-- Translated Language --</option>
+                    {% for sub in subtitles %}
+                        <option value="{{ sub.url }}" {% if sub.url == preselect_lang2 %}selected{% endif %}>
+                            {{ sub.lang_code }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <div class="playback-controls">
+                    <button id="loop-toggle">Loop</button>
+                </div>
+            </div>
+            <div id="lyrics-pane"></div>
+        </div>
+    </div>
+
+    <div id="definition-popup" class="popup-hidden">
+        <div id="popup-content">
+            <div id="popup-original-sentence"></div>
+            <div id="popup-translated-sentence"></div>
+            <div id="popup-word-translation"></div>
+            <div class="popup-buttons">
+                <button id="popup-save">Save Word</button>
+                <button id="popup-close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/player.js') }}"></script>
+</body>
+</html>
