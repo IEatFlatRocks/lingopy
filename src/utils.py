@@ -8,11 +8,14 @@ import re
 import lyricsgenius
 from faster_whisper import WhisperModel
 from pydantic import BaseModel
+from dotenv import load_dotenv
 
 class MusicInfo(BaseModel):
     artist: str
     title: str
 
+
+load_dotenv()
 
 # Client Setups
 print("Loading transcription model...")
