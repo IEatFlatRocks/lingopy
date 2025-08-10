@@ -1,4 +1,4 @@
-Lingo Player is a free and open-source web application for immersive language learning, inspired by platforms like Lingopie. It transforms any YouTube video into an interactive lesson by generating highly accurate, dual-language subtitles. The application features a synchronized, scrolling lyrics view where every word is clickable for instant translation, allowing you to build a personal vocabulary list from your favorite content.
+Lingo Player is a free and open-source web application for immersive language learning, inspired by Lingopie. It transforms any YouTube video into an interactive lesson by generating highly accurate, dual-language subtitles. The application features a synchronized, scrolling lyrics view where every word is clickable for instant translation, allowing you to build a personal vocabulary list from your favorite content.
 
 ## Key Features
 Video Library: Download YouTube videos, thumbnails, and subtitles directly to your local library.
